@@ -1,0 +1,81 @@
+<div class="list row">
+    <div class="col-md-8">
+      <div class="input-group mb-3">
+        <input
+            id
+          type="text"
+          class="form-control"
+          placeholder="Search by subscription ID"
+          [(ngModel)]="subscriptionId"
+        />
+        <div class="input-group-append">
+          <button
+            class="btn btn-outline-secondary"
+            type="button"
+            (click)="searchBySubscriptionId()"
+          >
+            Search
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <h4>Order List</h4>
+      <ul class="list-group">
+        <li
+          class="list-group-item"
+          *ngFor="let order of orders; let i = index"
+          [class.active]="i == currentIndex"
+          (click)="setActiveOrder(order, i)"
+        >
+          {{ order.orderId }}
+        </li>
+    </ul>
+      <div *ngIf="noDataVisible" class="alert alert-danger" role="alert">
+        No Data
+      </div>
+    <button *ngIf="clearButtonVisible" class="m-3 btn btn-sm btn-danger" (click)="refreshList()">
+        Clear List
+      </button>
+    </div>
+    <div class="col-md-6">
+      <div *ngIf="currentOrder.orderId">
+        <h4>Order Detail</h4>
+        <div>
+            <label><strong>Order ID:</strong></label> {{ currentOrder.orderId }}
+        </div>
+            <div>
+            <label><strong>Subscription ID:</strong></label> {{ currentOrder.subscriptionId }}
+        </div>
+            <div>
+            <label><strong>Delicery Date:</strong></label> {{ currentOrder.deliveryDate }}
+        </div>
+            <div>
+            <label><strong>Payment Method:</strong></label> {{ currentOrder.paymentMethod }}
+        </div>
+            <div>
+            <label><strong>Total Amount:</strong></label> {{ currentOrder.totalAmount }}
+        </div>
+            <div>
+            <label><strong>Status:</strong></label> {{ currentOrder.status }}
+        </div>
+            <div>
+            <label><strong>Products:</strong></label>
+        </div>
+        <ul class="list-group">
+            <li
+              class="list-group-item"
+              *ngFor="let product of currentOrder.products; let i = index"
+              [class.active]="i == currentIndex"
+            >
+            Product: {{ product.product }} Quantity: {{ product.quantity }}
+            </li>
+        </ul>
+      </div>
+  
+      <div *ngIf="!currentOrder">
+        <br />
+        <p>Please click on a Subscription...</p>
+      </div>
+    </div>
+  </div>
